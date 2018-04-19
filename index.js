@@ -4,7 +4,9 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
 require('./models/user');
+require('./services/serialize');
 require('./services/googleAuth');
+require('./services/githubAuth');
 
 mongoose.connect(keys.mongoURI);
 
