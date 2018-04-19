@@ -3,11 +3,10 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
-const dbConfig = require('./config/database');
 require('./models/user');
 require('./services/googleAuth');
 
-mongoose.connect(dbConfig.mongoURI);
+mongoose.connect(keys.mongoURI);
 
 const app = express();
 
