@@ -22,15 +22,8 @@ class App extends Component {
         <CssBaseline />
         <Router>
           <div>
-            <button
-              onClick={() => {
-                this.props.fetchUser();
-              }}
-            >
-              CLICK
-            </button>
             <Header />
-            <h1>{JSON.stringify(this.props.auth)}</h1>
+            <pre>{JSON.stringify(this.props.auth, null, 2)}</pre>
             <Route exact path="/" component={Landing} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/calculator" component={MacroWizard} />

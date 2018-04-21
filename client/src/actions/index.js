@@ -1,8 +1,6 @@
-export const fetchUser = payload => ({
-  type: 'FETCH_USER',
-  payload: payload
-});
+import * as types from './types';
 
-export const say = () => ({
-  type: 'SAY'
+export const fetchUser = payload => ({
+  type: types.FETCH_USER,
+  payload: payload
 });
