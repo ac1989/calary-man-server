@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from 'material-ui';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -17,6 +18,26 @@ const styles = {
   }
 };
 
+const RenderSignIn = props => {
+  if (props.auth === null) {
+    // TODO:
+    // make this a spinner
+    return <div />;
+  } else if (!props.auth._id) {
+    return (
+      <a href="/auth/github">
+        <Button color="inherit">Sign In</Button>
+      </a>
+    );
+  } else {
+    return (
+      <a href="/api/user/logout">
+        <Button color="inherit">Log Out</Button>
+      </a>
+    );
+  }
+};
+
 const Header = props => (
   <AppBar position="static">
     <Toolbar className={props.classes.flex}>
@@ -29,11 +50,13 @@ const Header = props => (
       <IconButton>
         <DirectionsRun color="inherit" aria-label="exercise" />
       </IconButton>
-      <Button color="inherit" className={props.classes.flexEnd}>
-        Sign In
-      </Button>
+      <div className={props.classes.flexEnd}>
+        <RenderSignIn auth={props.auth} />
+      </div>
     </Toolbar>
   </AppBar>
 );
 
-export default withStyles(styles)(Header);
+const mapStateToProps = ({ auth }) => ({ auth });
+
+export default connect(mapStateToProps)(withStyles(styles)(Header));
