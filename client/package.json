@@ -8,10 +8,14 @@
     },
     "/auth/github": {
       "target": "http://localhost:5000"
+    },
+    "/api/user": {
+      "target": "http://localhost:5000"
     }
   },
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.42",
+    "axios": "^0.18.0",
     "material-ui": "^1.0.0-beta.42",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
