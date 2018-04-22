@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import CssBaseline from 'material-ui/CssBaseline';
 import { fetchUser } from '../actions';
 import Header from './Header';
+import Landing from './Landing';
 
-const Landing = () => <div>You have landed...</div>;
 const Dashboard = () => <div>DASHBOARD</div>;
 const MacroWizard = () => <div>Macro Wizard</div>;
 const Intake = () => <div>Intake view...</div>;

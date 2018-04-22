@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -41,15 +42,21 @@ const RenderSignIn = props => {
 const Header = props => (
   <AppBar position="static">
     <Toolbar className={props.classes.flex}>
-      <IconButton>
-        <Dialpad color="inherit" aria-label="intake" />
-      </IconButton>
-      <IconButton>
-        <DateRange color="inherit" aria-label="intake" />
-      </IconButton>
-      <IconButton>
-        <DirectionsRun color="inherit" aria-label="exercise" />
-      </IconButton>
+      <Link to="/calculator">
+        <IconButton>
+          <Dialpad color="inherit" aria-label="macro-wizard" />
+        </IconButton>
+      </Link>
+      <Link to="/intake">
+        <IconButton>
+          <DateRange color="inherit" aria-label="intake" />
+        </IconButton>
+      </Link>
+      <Link to="/exercise">
+        <IconButton>
+          <DirectionsRun color="inherit" aria-label="exercise" />
+        </IconButton>
+      </Link>
       <div className={props.classes.flexEnd}>
         <RenderSignIn auth={props.auth} />
       </div>
