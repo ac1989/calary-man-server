@@ -5,11 +5,11 @@ import CssBaseline from 'material-ui/CssBaseline';
 import { fetchUser } from '../actions';
 import Header from './Header';
 import Landing from './Landing';
+import Calculator from './Calculator';
+import Intake from './Intake';
+import Exercise from './Exercise';
 
 const Dashboard = () => <div>DASHBOARD</div>;
-const MacroWizard = () => <div>Macro Wizard</div>;
-const Intake = () => <div>Intake view...</div>;
-const Exercise = () => <div>Exercise view...</div>;
 
 class App extends Component {
   componentDidMount = () => {
@@ -23,12 +23,12 @@ class App extends Component {
         <Router>
           <div>
             <Header />
-            <pre>{JSON.stringify(this.props.auth, null, 2)}</pre>
             <Route exact path="/" component={Landing} />
             <Route path="/dashboard" component={Dashboard} />
-            <Route path="/calculator" component={MacroWizard} />
+            <Route path="/calculator" component={Calculator} />
             <Route path="/intake" component={Intake} />
             <Route path="/exercise" component={Exercise} />
+            <pre>{JSON.stringify(this.props.auth, null, 2)}</pre>
           </div>
         </Router>
       </div>
