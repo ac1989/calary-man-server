@@ -23,12 +23,14 @@ class App extends Component {
         <Router>
           <div>
             <Header />
-            <Route exact path="/" component={Landing} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/calculator" component={Calculator} />
-            <Route path="/intake" component={Intake} />
-            <Route path="/exercise" component={Exercise} />
-            <pre>{JSON.stringify(this.props.auth, null, 2)}</pre>
+            <div style={{ width: '90%', margin: 'auto' }}>
+              <Route exact path="/" component={Landing} />
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/calculator" component={Calculator} />
+              <Route path="/intake" component={Intake} />
+              <Route path="/exercise" component={Exercise} />
+              <pre>{JSON.stringify(this.props.auth, null, 2)}</pre>
+            </div>
           </div>
         </Router>
       </div>
