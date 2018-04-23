@@ -10,14 +10,20 @@ import Dialpad from '@material-ui/icons/Dialpad';
 import DateRange from '@material-ui/icons/DateRange';
 import DirectionsRun from '@material-ui/icons/DirectionsRun';
 
-const styles = {
+const styles = theme => ({
+  container: {
+    background: theme.palette.primary.dark
+  },
+  icon: {
+    color: theme.palette.primary.contrastText
+  },
   flex: {
     display: 'flex'
   },
   flexEnd: {
     marginLeft: 'auto'
   }
-};
+});
 
 const RenderSignIn = props => {
   if (props.auth === null) {
@@ -32,29 +38,29 @@ const RenderSignIn = props => {
     );
   } else {
     return (
-      <a href="/api/user/logout">
-        <Button color="inherit">Log Out</Button>
-      </a>
+      <Button color="inherit">
+        <a href="/api/user/logout">Log Out</a>
+      </Button>
     );
   }
 };
 
 const Header = props => (
-  <AppBar position="static">
+  <AppBar className={props.classes.container} position="static">
     <Toolbar className={props.classes.flex}>
       <Link to="/calculator">
         <IconButton>
-          <Dialpad color="inherit" aria-label="macro-wizard" />
+          <Dialpad className={props.classes.icon} aria-label="macro-wizard" />
         </IconButton>
       </Link>
       <Link to="/intake">
         <IconButton>
-          <DateRange color="inherit" aria-label="intake" />
+          <DateRange color="disabled" aria-label="intake" />
         </IconButton>
       </Link>
       <Link to="/exercise">
         <IconButton>
-          <DirectionsRun color="inherit" aria-label="exercise" />
+          <DirectionsRun color="disabled" aria-label="exercise" />
         </IconButton>
       </Link>
       <div className={props.classes.flexEnd}>

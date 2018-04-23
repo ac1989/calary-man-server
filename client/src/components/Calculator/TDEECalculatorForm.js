@@ -11,17 +11,23 @@ import {
   FormHelperText
 } from 'material-ui/Form';
 import { renderTextField, tdeeCalculatorErrors } from '../../helpers/form';
+import MacroDisplay from './MacroDisplay';
 
 const styles = theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    margin: theme.spacing.unit,
+    background: '#f1f1f1'
   },
   margin: {
     margin: theme.spacing.unit
   },
   formControl: {
     margin: theme.spacing.unit * 3
+  },
+  formSection: {
+    marginTop: theme.spacing.unit * 3
   }
 });
 
@@ -41,7 +47,8 @@ class TDEECalculatorForm extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
       <form className={classes.container} onSubmit={handleSubmit}>
-        <Grid container>
+        <Grid item xs={6} md={4} className={classes.formSection}>
+          <FormLabel component="legend">Measurements</FormLabel>
           <Field
             className={classes.margin}
             name="height"
@@ -64,7 +71,7 @@ class TDEECalculatorForm extends Component {
             helperText="We wont tell anyone (honest)..."
           />
         </Grid>
-        <Grid container>
+        <Grid item xs={6} md={4} className={classes.formSection}>
           <Grid item xs={12}>
             <FormLabel component="legend">Gender</FormLabel>
             <Field
@@ -81,13 +88,12 @@ class TDEECalculatorForm extends Component {
               />
             </Field>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={4}>
             <FormLabel component="legend">Activity Level</FormLabel>
             <Field
               className={classes.margin}
               name="activityLevel"
               component={renderRadioGroup}
-              row
             >
               <FormControlLabel
                 value="1.375"
@@ -106,6 +112,8 @@ class TDEECalculatorForm extends Component {
               />
             </Field>
           </Grid>
+        </Grid>
+        <Grid item xs={12} md={4} className={classes.formSection}>
           <Grid item xs={12}>
             <FormLabel component="legend">Dietary Goal</FormLabel>
             <Field
@@ -141,13 +149,19 @@ class TDEECalculatorForm extends Component {
             </Field>
           </Grid>
         </Grid>
-        <Button
-          variant="raised"
-          color="secondary"
-          disabled={pristine || submitting}
-        >
-          Save
-        </Button>
+        <Grid item xs={12} className={classes.formSection}>
+          <MacroDisplay />
+        </Grid>
+        <Grid item xs={12} className={classes.formSection}>
+          <Button
+            type="submit"
+            variant="raised"
+            color="secondary"
+            disabled={submitting}
+          >
+            Save
+          </Button>
+        </Grid>
       </form>
     );
   }
