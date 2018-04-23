@@ -29,6 +29,20 @@ class App extends Component {
               <Route path="/calculator" component={Calculator} />
               <Route path="/intake" component={Intake} />
               <Route path="/exercise" component={Exercise} />
+              {/* TODO: remove all these dev  */}
+              {this.props.form.bodyStatsForm &&
+                this.props.form.bodyStatsForm.values && (
+                  <div>
+                    <pre>
+                      {JSON.stringify(
+                        this.props.form.bodyStatsForm.values,
+                        null,
+                        2
+                      )}
+                    </pre>
+                  </div>
+                )}
+              {/* <pre>{JSON.stringify(this.props.form, null, 2)}</pre> */}
               <pre>{JSON.stringify(this.props.auth, null, 2)}</pre>
             </div>
           </div>
@@ -38,8 +52,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { auth };
-};
+const mapStateToProps = ({ auth, form }) => ({ auth, form });
 
 export default connect(mapStateToProps, { fetchUser })(App);
