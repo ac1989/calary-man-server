@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-import TextField from 'material-ui/TextField';
 import Radio, { RadioGroup } from 'material-ui/Radio';
+import Button from 'material-ui/Button';
 import {
   FormLabel,
   FormControl,
   FormControlLabel,
   FormHelperText
 } from 'material-ui/Form';
+import { renderTextField } from '../../helpers/form';
 
 const styles = theme => ({
   container: {
@@ -23,22 +24,6 @@ const styles = theme => ({
     margin: theme.spacing.unit * 3
   }
 });
-
-const renderTextField = ({
-  input,
-  label,
-  helperText,
-  meta: { touched, error },
-  ...custom
-}) => (
-  <TextField
-    helperText={helperText}
-    label={label}
-    error={touched && error}
-    {...input}
-    {...custom}
-  />
-);
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -56,7 +41,7 @@ class BodyStatsForm extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
       <form className={classes.container} onSubmit={handleSubmit}>
-        <Grid item xs={12}>
+        <Grid container>
           <Field
             className={classes.margin}
             name="height"
@@ -64,8 +49,6 @@ class BodyStatsForm extends Component {
             label="Height (cm)"
             helperText="Enter you're height in centimeters..."
           />
-        </Grid>
-        <Grid item xs={12}>
           <Field
             className={classes.margin}
             name="weight"
@@ -73,8 +56,6 @@ class BodyStatsForm extends Component {
             label="Weight (kg)"
             helperText="Enter your weight in kilograms..."
           />
-        </Grid>
-        <Grid item xs={12}>
           <Field
             className={classes.margin}
             name="age"
@@ -83,77 +64,95 @@ class BodyStatsForm extends Component {
             helperText="We wont tell anyone (honest)..."
           />
         </Grid>
-        <Grid className={classes.margin} item xs={12}>
-          <FormLabel component="legend">Gender</FormLabel>
-          <Field name="gender" component={renderRadioGroup} row>
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel
-              value="female"
-              control={<Radio />}
-              label="Female"
-            />
-          </Field>
+        <Grid container>
+          <Grid item xs={12}>
+            <FormLabel component="legend">Gender</FormLabel>
+            <Field
+              className={classes.margin}
+              name="gender"
+              component={renderRadioGroup}
+              row
+            >
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="Female"
+              />
+            </Field>
+          </Grid>
+          <Grid item xs={12}>
+            <FormLabel component="legend">Activity Level</FormLabel>
+            <Field
+              className={classes.margin}
+              name="activityLevel"
+              component={renderRadioGroup}
+              row
+            >
+              <FormControlLabel
+                value="1.375"
+                control={<Radio />}
+                label="Sedentary"
+              />
+              <FormControlLabel
+                value="1.55"
+                control={<Radio />}
+                label="Moderate"
+              />
+              <FormControlLabel
+                value="1.725"
+                control={<Radio />}
+                label="Very Active"
+              />
+            </Field>
+          </Grid>
+          <Grid item xs={12}>
+            <FormLabel component="legend">Dietary Goal</FormLabel>
+            <Field
+              className={classes.margin}
+              name="dietaryGoal"
+              component={renderRadioGroup}
+            >
+              <FormControlLabel
+                value="0.8"
+                control={<Radio />}
+                label="Lose Weight (20% Defecit)"
+              />
+              <FormControlLabel
+                value="0.9"
+                control={<Radio />}
+                label="Lose Weight (10% Defecit)"
+              />
+              <FormControlLabel
+                value="1"
+                control={<Radio />}
+                label="Maintain"
+              />
+              <FormControlLabel
+                value="1.1"
+                control={<Radio />}
+                label="Gain Weight (10% Surplus)"
+              />
+              <FormControlLabel
+                value="1.2"
+                control={<Radio />}
+                label="Gain Weight (20% Surplus)"
+              />
+            </Field>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <FormLabel component="legend">Activity Level</FormLabel>
-          <Field
-            className={classes.margin}
-            name="activityLevel"
-            component={renderRadioGroup}
-            row
-          >
-            <FormControlLabel
-              value="1.5"
-              control={<Radio />}
-              label="Sedentary"
-            />
-            <FormControlLabel
-              value="1.75"
-              control={<Radio />}
-              label="Moderate"
-            />
-            <FormControlLabel
-              value="2"
-              control={<Radio />}
-              label="Very Active"
-            />
-          </Field>
-        </Grid>
-        <Grid item xs={12}>
-          <FormLabel component="legend">Dietary Goal</FormLabel>
-          <Field
-            className={classes.margin}
-            name="dietaryGoal"
-            component={renderRadioGroup}
-          >
-            <FormControlLabel
-              value="-20"
-              control={<Radio />}
-              label="Lose Weight (20% Defecit)"
-            />
-            <FormControlLabel
-              value="-10"
-              control={<Radio />}
-              label="Lose Weight (10% Defecit)"
-            />
-            <FormControlLabel value="0" control={<Radio />} label="Maintain" />
-            <FormControlLabel
-              value="10"
-              control={<Radio />}
-              label="Gain Weight (10% Surplus)"
-            />
-            <FormControlLabel
-              value="20"
-              control={<Radio />}
-              label="Gain Weight (20% Surplus)"
-            />
-          </Field>
-        </Grid>
+        <Button
+          variant="raised"
+          color="secondary"
+          disabled={pristine || submitting}
+        >
+          Save
+        </Button>
       </form>
     );
   }
 }
 
 export default reduxForm({
-  form: 'bodyStatsForm'
+  form: 'tdeeCalculatorForm'
 })(withStyles(styles)(BodyStatsForm));

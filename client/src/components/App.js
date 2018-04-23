@@ -30,12 +30,12 @@ class App extends Component {
               <Route path="/intake" component={Intake} />
               <Route path="/exercise" component={Exercise} />
               {/* TODO: remove all these dev  */}
-              {this.props.form.bodyStatsForm &&
-                this.props.form.bodyStatsForm.values && (
+              {this.props.form.tdeeCalculatorForm &&
+                this.props.form.tdeeCalculatorForm.values && (
                   <div>
                     <pre>
                       {JSON.stringify(
-                        this.props.form.bodyStatsForm.values,
+                        this.props.form.tdeeCalculatorForm.values,
                         null,
                         2
                       )}
