@@ -12,6 +12,7 @@ import Exercise from './Exercise';
 
 const Dashboard = () => <div>DASHBOARD</div>;
 
+// TODO: seperate theme into HOC
 const theme = createMuiTheme({
   palette: {
     primary: {

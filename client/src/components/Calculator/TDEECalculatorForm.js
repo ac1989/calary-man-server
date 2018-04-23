@@ -41,6 +41,11 @@ const renderRadioGroup = ({ input, ...rest }) => (
   />
 );
 
+// TODO:
+// +add imperial units
+// +add custom values
+// +improve validation
+
 class TDEECalculatorForm extends Component {
   render() {
     const { classes } = this.props;
