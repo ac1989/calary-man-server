@@ -11,7 +11,7 @@ export const renderTextField = ({
 }) => (
   <Grid item xs={12} sm={12}>
     <TextField
-      helperText={helperText}
+      helperText={touched && error ? error : helperText}
       label={label}
       error={touched && error}
       {...input}
@@ -20,10 +20,19 @@ export const renderTextField = ({
   </Grid>
 );
 
-export const tdeeCalculatorWarn = values => {
-  const warnings = {};
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...';
+export const tdeeCalculatorErrors = values => {
+  const errors = {};
+  if (!values.height) {
+    errors.height = 'Required; You must provide your height.';
   }
-  return warnings;
+  if (!values.weight) {
+    errors.weight = 'Required; You must provide your weight.';
+  }
+  if (!values.age) {
+    errors.age = 'Required; You must provide your age.';
+  }
+  if (values.age < 16) {
+    errors.age = 'Grow up.';
+  }
+  return errors;
 };

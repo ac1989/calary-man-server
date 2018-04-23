@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getTdeeFormValues, getCalculatedTDEE } from '../../selectors';
+import { getCalculatedTDEE } from '../../selectors';
+import Typography from 'material-ui/Typography';
 
 export class MacroDisplay extends Component {
   render() {
     return (
-      <div>
-        <pre>{JSON.stringify(this.props.tdeeFormValues, null, 2)}</pre>
-        <h2>{this.props.calculatedTDEE}</h2>
-      </div>
+      <Typography variant="display1">
+        {parseInt(this.props.calculatedTDEE)}
+      </Typography>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    tdeeFormValues: getTdeeFormValues(state),
     calculatedTDEE: getCalculatedTDEE(state)
   };
 };

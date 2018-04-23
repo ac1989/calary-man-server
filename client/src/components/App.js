@@ -30,20 +30,9 @@ class App extends Component {
               <Route path="/intake" component={Intake} />
               <Route path="/exercise" component={Exercise} />
               {/* TODO: remove all these dev  */}
-              {this.props.form.tdeeCalculatorForm &&
-                this.props.form.tdeeCalculatorForm.values && (
-                  <div>
-                    <pre>
-                      {JSON.stringify(
-                        this.props.form.tdeeCalculatorForm.values,
-                        null,
-                        2
-                      )}
-                    </pre>
-                  </div>
-                )}
-              {/* <pre>{JSON.stringify(this.props.form, null, 2)}</pre> */}
-              <pre>{JSON.stringify(this.props.auth, null, 2)}</pre>
+              <pre style={{ background: '#f2f2f2' }}>
+                {JSON.stringify(this.props.auth, null, 2)}
+              </pre>
             </div>
           </div>
         </Router>

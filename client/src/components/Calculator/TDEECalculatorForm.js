@@ -10,7 +10,7 @@ import {
   FormControlLabel,
   FormHelperText
 } from 'material-ui/Form';
-import { renderTextField } from '../../helpers/form';
+import { renderTextField, tdeeCalculatorErrors } from '../../helpers/form';
 
 const styles = theme => ({
   container: {
@@ -29,13 +29,13 @@ const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
     {...input}
     {...rest}
-    valueSelected={input.value}
+    value={input.value}
     onChange={(event, value) => input.onChange(value)}
     row={rest.row}
   />
 );
 
-class BodyStatsForm extends Component {
+class TDEECalculatorForm extends Component {
   render() {
     const { classes } = this.props;
     const { handleSubmit, pristine, reset, submitting } = this.props;
@@ -154,5 +154,15 @@ class BodyStatsForm extends Component {
 }
 
 export default reduxForm({
-  form: 'tdeeCalculatorForm'
-})(withStyles(styles)(BodyStatsForm));
+  form: 'tdeeCalculatorForm',
+  // TODO: load from user
+  initialValues: {
+    height: 180,
+    weight: 80,
+    age: 28,
+    gender: 'male',
+    activityLevel: '1.375',
+    dietaryGoal: '1'
+  },
+  validate: tdeeCalculatorErrors
+})(withStyles(styles)(TDEECalculatorForm));
