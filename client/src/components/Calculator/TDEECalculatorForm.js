@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
@@ -172,16 +173,29 @@ class TDEECalculatorForm extends Component {
   }
 }
 
-export default reduxForm({
+TDEECalculatorForm = reduxForm({
   form: 'tdeeCalculatorForm',
-  // TODO: load from user
-  initialValues: {
-    height: 180,
-    weight: 80,
-    age: 28,
-    gender: 'male',
-    activityLevel: '1.375',
-    dietaryGoal: '1'
-  },
   validate: tdeeCalculatorErrors
+})(TDEECalculatorForm);
+
+export default connect(({ auth }) => {
+  if (auth && auth.data) {
+    return {
+      initialValues: {
+        ...auth.data,
+        weight: auth.weighIns.length ? auth.weighIns[0].weight : '70'
+      }
+    };
+  } else {
+    return {
+      initialValues: {
+        height: '180',
+        weight: '70',
+        age: '20',
+        gender: 'male',
+        activityLevel: '1.55',
+        dietaryGoal: '1'
+      }
+    };
+  }
 })(withStyles(styles)(TDEECalculatorForm));

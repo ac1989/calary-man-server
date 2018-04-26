@@ -17,9 +17,13 @@ const userSchema = new Schema({
     age: String,
     gender: String,
     activityLevel: String,
-    deitaryGoal: String
+    dietaryGoal: String
   },
-  weighIns: [WeighInSchema]
+  weighIns: [WeighInSchema],
+  preferences: {
+    heightUnit: { type: String, default: 'cm' },
+    weightUnit: { type: String, default: 'kg' }
+  }
 });
 
 mongoose.model('users', userSchema);

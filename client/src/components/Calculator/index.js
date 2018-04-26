@@ -5,15 +5,6 @@ import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import TDEECalculatorForm from './TDEECalculatorForm';
-import MacroDisplay from './MacroDisplay';
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-// TODO: commit to server / db
-async function showResults(values) {
-  await sleep(500); // simulate server latency
-  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-}
 
 const styles = theme => ({
   container: {

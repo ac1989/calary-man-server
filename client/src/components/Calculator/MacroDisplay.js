@@ -7,7 +7,7 @@ export class MacroDisplay extends Component {
   render() {
     return (
       <Typography variant="display1">
-        {parseInt(this.props.calculatedTDEE)}
+        {parseInt(this.props.calculatedTDEE, 10)}
       </Typography>
     );
   }

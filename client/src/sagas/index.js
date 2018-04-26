@@ -4,8 +4,8 @@ import * as types from '../actions/types';
 
 export function* fetchUser() {
   console.log('hello');
-  const response = yield call(axios.get, '/api/user');
-  yield put({ type: types.FETCH_USER_SUCCEEDED, user: response.data });
+  const res = yield call(axios.get, '/api/user');
+  yield put({ type: types.FETCH_USER_SUCCEEDED, user: res.data });
 }
 
 export function* watchFetchUser() {
@@ -14,8 +14,13 @@ export function* watchFetchUser() {
 
 //// ---------------------------------------------------------------------------
 function* saveCalculatorData(action) {
-  const res = yield call(axios.post, '/api/calculator', { data: action.data });
-  console.log(res.data);
+  const res = yield call(axios.post, '/api/user/calculator', {
+    data: action.data
+  });
+  yield put({
+    type: types.SAVE_CALCULATOR_DATA_SUCCEEDED,
+    user: res.data
+  });
 }
 
 function* watchSaveCalculatorData() {

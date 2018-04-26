@@ -5,7 +5,7 @@ module.exports = app => {
     req.user ? res.send(req.user) : res.send({});
   });
 
-  app.post('/api/calculator', requireUser, async (req, res) => {
+  app.post('/api/user/calculator', requireUser, async (req, res) => {
     console.log(req.user);
     console.log(req.body);
     const {
@@ -18,6 +18,7 @@ module.exports = app => {
     } = req.body.data;
 
     req.user.data = req.body.data;
+    req.user.weighIns.unshift({ weight, date: new Date() });
 
     const user = await req.user.save();
     res.send(user);

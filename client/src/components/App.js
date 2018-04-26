@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import CssBaseline from 'material-ui/CssBaseline';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider } from 'material-ui/styles';
+import theme from '../styles/theme';
 import { fetchUser } from '../actions';
 import Header from './Header';
 import Landing from './Landing';
@@ -11,22 +12,6 @@ import Intake from './Intake';
 import Exercise from './Exercise';
 
 const Dashboard = () => <div>DASHBOARD</div>;
-
-// TODO: seperate theme into HOC
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#455a64',
-      contrastText: '#fff'
-    },
-    secondary: {
-      main: '#b71c1c'
-    }
-  },
-  status: {
-    danger: 'orange'
-  }
-});
 
 class App extends Component {
   componentDidMount = () => {
