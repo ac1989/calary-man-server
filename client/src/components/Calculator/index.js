@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -27,14 +29,11 @@ class Calculator extends Component {
           <Typography variant="display1">TDEE Calculator</Typography>
         </Grid>
         <Grid item xs={12}>
-          <TDEECalculatorForm onSubmit={showResults} />
-        </Grid>
-        <Grid item xs={12}>
-          <MacroDisplay />
+          <TDEECalculatorForm onSubmit={this.props.saveCalculatorData} />
         </Grid>
       </Grid>
     );
   }
 }
 
-export default withStyles(styles)(Calculator);
+export default connect(null, actions)(withStyles(styles)(Calculator));

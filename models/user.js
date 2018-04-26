@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const WeighInSchema = require('./weighIn');
 
 const userSchema = new Schema({
   google: {
@@ -9,7 +10,16 @@ const userSchema = new Schema({
   github: {
     id: String,
     username: String
-  }
+  },
+  data: {
+    height: String,
+    weight: String,
+    age: String,
+    gender: String,
+    activityLevel: String,
+    deitaryGoal: String
+  },
+  weighIns: [WeighInSchema]
 });
 
 mongoose.model('users', userSchema);

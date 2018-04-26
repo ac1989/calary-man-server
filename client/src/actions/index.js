@@ -1,6 +1,10 @@
 import * as types from './types';
 
-export const fetchUser = payload => ({
-  type: types.FETCH_USER,
-  payload: payload
+export const fetchUser = () => ({
+  type: types.FETCH_USER
+});
+
+export const saveCalculatorData = data => ({
+  type: types.SAVE_CALCULATOR_DATA,
+  data
 });

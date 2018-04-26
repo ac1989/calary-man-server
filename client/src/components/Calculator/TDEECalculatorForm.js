@@ -49,7 +49,7 @@ const renderRadioGroup = ({ input, ...rest }) => (
 class TDEECalculatorForm extends Component {
   render() {
     const { classes } = this.props;
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { handleSubmit, pristine, reset, submitting, invalid } = this.props;
     return (
       <form className={classes.container} onSubmit={handleSubmit}>
         <Grid item xs={6} md={4} className={classes.formSection}>
@@ -162,7 +162,7 @@ class TDEECalculatorForm extends Component {
             type="submit"
             variant="raised"
             color="secondary"
-            disabled={submitting}
+            disabled={submitting || invalid}
           >
             Save
           </Button>
