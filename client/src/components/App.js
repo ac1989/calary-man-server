@@ -33,9 +33,9 @@ class App extends Component {
                 <Route path="/intake" component={Intake} />
                 <Route path="/exercise" component={Exercise} />
                 {/* TODO: remove all these dev  */}
-                <pre style={{ background: '#f2f2f2' }}>
+                {/* <pre style={{ background: '#f2f2f2' }}>
                   {JSON.stringify(this.props.auth, null, 2)}
-                </pre>
+                </pre> */}
               </div>
             </div>
           </Router>

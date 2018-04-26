@@ -53,7 +53,7 @@ class TDEECalculatorForm extends Component {
     const { handleSubmit, pristine, reset, submitting, invalid } = this.props;
     return (
       <form className={classes.container} onSubmit={handleSubmit}>
-        <Grid item xs={6} md={4} className={classes.formSection}>
+        <Grid item xs={12} sm={6} md={4} className={classes.formSection}>
           <FormLabel component="legend">Measurements</FormLabel>
           <Field
             className={classes.margin}
@@ -77,7 +77,7 @@ class TDEECalculatorForm extends Component {
             helperText="We wont tell anyone (honest)..."
           />
         </Grid>
-        <Grid item xs={6} md={4} className={classes.formSection}>
+        <Grid item xs={12} sm={6} md={4} className={classes.formSection}>
           <Grid item xs={12}>
             <FormLabel component="legend">Gender</FormLabel>
             <Field
@@ -94,7 +94,7 @@ class TDEECalculatorForm extends Component {
               />
             </Field>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={6} md={4}>
             <FormLabel component="legend">Activity Level</FormLabel>
             <Field
               className={classes.margin}
@@ -163,7 +163,9 @@ class TDEECalculatorForm extends Component {
             type="submit"
             variant="raised"
             color="secondary"
-            disabled={submitting || invalid}
+            disabled={
+              submitting || invalid || (this.props.auth && !this.props.auth._id)
+            }
           >
             Save
           </Button>
@@ -184,7 +186,8 @@ export default connect(({ auth }) => {
       initialValues: {
         ...auth.data,
         weight: auth.weighIns.length ? auth.weighIns[0].weight : '70'
-      }
+      },
+      auth
     };
   } else {
     return {
@@ -195,7 +198,8 @@ export default connect(({ auth }) => {
         gender: 'male',
         activityLevel: '1.55',
         dietaryGoal: '1'
-      }
+      },
+      auth
     };
   }
 })(withStyles(styles)(TDEECalculatorForm));
