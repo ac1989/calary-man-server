@@ -32,9 +32,9 @@ const RenderSignIn = props => {
     return <div />;
   } else if (!props.auth._id) {
     return (
-      <a href="/auth/github">
+      <Link to={'/'}>
         <Button color="inherit">Sign In</Button>
-      </a>
+      </Link>
     );
   } else {
     return (
