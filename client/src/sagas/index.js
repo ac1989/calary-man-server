@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { call, put, takeLatest, all } from 'redux-saga/effects';
+import { stopSubmit } from 'redux-form';
 import * as types from '../actions/types';
 
 export function* fetchUser() {
@@ -14,13 +15,19 @@ export function* watchFetchUser() {
 
 //// ---------------------------------------------------------------------------
 function* saveCalculatorData(action) {
-  const res = yield call(axios.post, '/api/user/calculator', {
-    data: action.data
-  });
-  yield put({
-    type: types.SAVE_CALCULATOR_DATA_SUCCEEDED,
-    user: res.data
-  });
+  try {
+    const res = yield call(axios.post, '/api/user/calculator', {
+      data: action.data
+    });
+    yield put({
+      type: types.SAVE_CALCULATOR_DATA_SUCCEEDED,
+      user: res.data
+    });
+    stopSubmit('tdeeCalculatorForm');
+  } catch (err) {
+    // TODO: handle error
+    console.warn(err);
+  }
 }
 
 function* watchSaveCalculatorData() {

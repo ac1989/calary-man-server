@@ -53,9 +53,6 @@ const renderRadioGroup = ({ input, ...rest }) => (
 // +improve validation
 
 class TDEECalculatorForm extends Component {
-  static getDerivedStateFromProps(nextProps) {
-    console.log('nextProps', nextProps);
-  }
   render() {
     const { classes } = this.props;
     const { handleSubmit, pristine, reset, submitting, invalid } = this.props;
@@ -203,9 +200,9 @@ export default connect(({ auth }) => {
   } else {
     return {
       initialValues: {
-        height: '0',
-        weight: '00',
-        age: '0',
+        height: '',
+        weight: '',
+        age: '',
         gender: 'male',
         activityLevel: '1.55',
         dietaryGoal: '1'
