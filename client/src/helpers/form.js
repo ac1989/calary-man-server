@@ -1,6 +1,8 @@
 import React from 'react';
 import validator from 'validator';
 import TextField from 'material-ui/TextField';
+import { RadioGroup } from 'material-ui/Radio';
+
 import Grid from 'material-ui/Grid';
 
 export const renderTextField = ({
@@ -19,6 +21,16 @@ export const renderTextField = ({
       {...custom}
     />
   </Grid>
+);
+
+export const renderRadioGroup = ({ input, ...rest }) => (
+  <RadioGroup
+    {...input}
+    {...rest}
+    value={input.value}
+    onChange={(event, value) => input.onChange(value)}
+    row={rest.row}
+  />
 );
 
 export const tdeeCalculatorErrors = values => {

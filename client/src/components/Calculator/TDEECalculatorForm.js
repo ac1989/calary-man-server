@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { withStyles } from 'material-ui/styles';
+import Radio from 'material-ui/Radio';
 import Grid from 'material-ui/Grid';
-import Radio, { RadioGroup } from 'material-ui/Radio';
 import Button from 'material-ui/Button';
 import {
   FormLabel,
@@ -13,6 +13,7 @@ import {
 } from 'material-ui/Form';
 import {
   renderTextField,
+  renderRadioGroup,
   tdeeCalculatorErrors,
   normalize2Decimal,
   normalizeInt
@@ -36,16 +37,6 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3
   }
 });
-
-const renderRadioGroup = ({ input, ...rest }) => (
-  <RadioGroup
-    {...input}
-    {...rest}
-    value={input.value}
-    onChange={(event, value) => input.onChange(value)}
-    row={rest.row}
-  />
-);
 
 // TODO:
 // +add imperial units
@@ -188,6 +179,7 @@ TDEECalculatorForm = reduxForm({
   enableReinitialize: true
 })(TDEECalculatorForm);
 
+// FIXME:
 export default connect(({ auth }) => {
   if (auth && auth.data) {
     return {

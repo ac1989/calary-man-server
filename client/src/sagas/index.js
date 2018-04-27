@@ -24,6 +24,7 @@ function* saveCalculatorData(action) {
       user: res.data
     });
     stopSubmit('tdeeCalculatorForm');
+    yield put({ type: types.SHOW_SNACKBAR, text: 'Save Succeeded!' });
   } catch (err) {
     // TODO: handle error
     console.warn(err);

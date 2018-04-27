@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import CssBaseline from 'material-ui/CssBaseline';
 import { MuiThemeProvider } from 'material-ui/styles';
 import theme from '../styles/theme';
-import { fetchUser } from '../actions';
+import Snackbar from 'material-ui/Snackbar';
+import { fetchUser, killSnackbar } from '../actions';
 import Header from './Header';
 import Landing from './Landing';
 import Calculator from './Calculator';
@@ -36,6 +37,21 @@ class App extends Component {
                 {/* <pre style={{ background: '#f2f2f2' }}>
                   {JSON.stringify(this.props.auth, null, 2)}
                 </pre> */}
+                <Snackbar
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left'
+                  }}
+                  open={this.props.snackbar.open}
+                  autoHideDuration={6000}
+                  onClose={this.props.killSnackbar}
+                  SnackbarContentProps={{
+                    'aria-describedby': 'message-id'
+                  }}
+                  message={
+                    <span id="message-id">{this.props.snackbar.text}</span>
+                  }
+                />
               </div>
             </div>
           </Router>
@@ -45,6 +61,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, form }) => ({ auth, form });
+const mapStateToProps = ({ auth, form, snackbar }) => ({
+  auth,
+  form,
+  snackbar
+});
 
-export default connect(mapStateToProps, { fetchUser })(App);
+export default connect(mapStateToProps, { fetchUser, killSnackbar })(App);
