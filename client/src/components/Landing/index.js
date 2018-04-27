@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { withStyles } from 'material-ui';
 import Button from 'material-ui/Button';
 
-const styles = {
+const styles = theme => ({
   container: {
     display: 'flex',
     width: '420px',
@@ -15,7 +15,7 @@ const styles = {
   },
   googleSignIn: {
     background: '#dd4b39',
-    marginTop: '16px',
+    marginTop: `${theme.spacing.unit}px`,
     color: '#f5f5f5',
     '&:hover': {
       background: '#c13c2c'
@@ -28,7 +28,7 @@ const styles = {
       background: '#15181c'
     }
   }
-};
+});
 
 const SocialSignIn = props => {
   if (props.auth === null) {

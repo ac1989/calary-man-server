@@ -11,7 +11,12 @@ import {
   FormControlLabel,
   FormHelperText
 } from 'material-ui/Form';
-import { renderTextField, tdeeCalculatorErrors } from '../../helpers/form';
+import {
+  renderTextField,
+  tdeeCalculatorErrors,
+  normalize2Decimal,
+  normalizeInt
+} from '../../helpers/form';
 import MacroDisplay from './MacroDisplay';
 
 const styles = theme => ({
@@ -48,6 +53,9 @@ const renderRadioGroup = ({ input, ...rest }) => (
 // +improve validation
 
 class TDEECalculatorForm extends Component {
+  static getDerivedStateFromProps(nextProps) {
+    console.log('nextProps', nextProps);
+  }
   render() {
     const { classes } = this.props;
     const { handleSubmit, pristine, reset, submitting, invalid } = this.props;
@@ -68,6 +76,7 @@ class TDEECalculatorForm extends Component {
             component={renderTextField}
             label="Weight (kg)"
             helperText="Enter your weight in kilograms..."
+            normalize={normalize2Decimal}
           />
           <Field
             className={classes.margin}
@@ -75,6 +84,7 @@ class TDEECalculatorForm extends Component {
             component={renderTextField}
             label="Age"
             helperText="We wont tell anyone (honest)..."
+            normalize={normalizeInt}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4} className={classes.formSection}>
@@ -177,7 +187,8 @@ class TDEECalculatorForm extends Component {
 
 TDEECalculatorForm = reduxForm({
   form: 'tdeeCalculatorForm',
-  validate: tdeeCalculatorErrors
+  validate: tdeeCalculatorErrors,
+  enableReinitialize: true
 })(TDEECalculatorForm);
 
 export default connect(({ auth }) => {
@@ -185,16 +196,16 @@ export default connect(({ auth }) => {
     return {
       initialValues: {
         ...auth.data,
-        weight: auth.weighIns.length ? auth.weighIns[0].weight : '70'
+        weight: auth.weighIns[0] ? auth.weighIns[0].weight : '70'
       },
       auth
     };
   } else {
     return {
       initialValues: {
-        height: '180',
-        weight: '70',
-        age: '20',
+        height: '0',
+        weight: '00',
+        age: '0',
         gender: 'male',
         activityLevel: '1.55',
         dietaryGoal: '1'

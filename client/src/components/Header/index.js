@@ -32,9 +32,11 @@ const RenderSignIn = props => {
     return <div />;
   } else if (!props.auth._id) {
     return (
-      <Link to={'/'}>
-        <Button color="inherit">Sign In</Button>
-      </Link>
+      // <Link to={'/'}>
+      <Button href="/" color="inherit">
+        Sign In
+      </Button>
+      // </Link>
     );
   } else {
     return (
