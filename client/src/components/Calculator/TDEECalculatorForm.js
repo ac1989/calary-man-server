@@ -5,17 +5,11 @@ import { withStyles } from 'material-ui/styles';
 import Radio from 'material-ui/Radio';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
-import {
-  FormLabel,
-  FormControl,
-  FormControlLabel,
-  FormHelperText
-} from 'material-ui/Form';
+import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import {
   renderTextField,
   renderRadioGroup,
   tdeeCalculatorErrors,
-  normalize2Decimal,
   normalizeInt
 } from '../../helpers/form';
 import MacroDisplay from './MacroDisplay';
@@ -24,6 +18,7 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    padding: theme.spacing.unit,
     margin: theme.spacing.unit,
     background: '#f1f1f1'
   },
@@ -46,7 +41,7 @@ const styles = theme => ({
 class TDEECalculatorForm extends Component {
   render() {
     const { classes } = this.props;
-    const { handleSubmit, pristine, reset, submitting, invalid } = this.props;
+    const { handleSubmit, submitting, invalid } = this.props;
     return (
       <form className={classes.container} onSubmit={handleSubmit}>
         <Grid item xs={12} sm={6} md={4} className={classes.formSection}>
@@ -56,15 +51,18 @@ class TDEECalculatorForm extends Component {
             name="height"
             component={renderTextField}
             label="Height (cm)"
+            required
             helperText="Enter you're height in centimeters..."
+            normalize={normalizeInt}
           />
           <Field
             className={classes.margin}
             name="weight"
             component={renderTextField}
             label="Weight (kg)"
+            required
             helperText="Enter your weight in kilograms..."
-            normalize={normalize2Decimal}
+            normalize={normalizeInt}
           />
           <Field
             className={classes.margin}
@@ -154,19 +152,19 @@ class TDEECalculatorForm extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12} className={classes.formSection}>
-          <MacroDisplay />
+          {!invalid && <MacroDisplay />}
         </Grid>
         <Grid item xs={12} className={classes.formSection}>
-          <Button
-            type="submit"
-            variant="raised"
-            color="secondary"
-            disabled={
-              submitting || invalid || (this.props.auth && !this.props.auth._id)
-            }
-          >
-            Save
-          </Button>
+          {this.props.auth && (
+            <Button
+              type="submit"
+              variant="raised"
+              color="secondary"
+              disabled={submitting || invalid}
+            >
+              Save
+            </Button>
+          )}
         </Grid>
       </form>
     );

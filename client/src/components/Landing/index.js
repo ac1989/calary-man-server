@@ -8,6 +8,7 @@ const styles = theme => ({
   container: {
     display: 'flex',
     width: '420px',
+    maxWidth: '96%',
     margin: 'auto',
     marginTop: '40px',
     flexDirection: 'column',
@@ -47,7 +48,7 @@ const SocialSignIn = props => {
       </div>
     );
   } else {
-    return <Redirect to="/intake" />;
+    return <Redirect to="/calculator" />;
   }
 };
 

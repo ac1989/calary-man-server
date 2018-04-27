@@ -30,7 +30,7 @@ const RenderSignIn = props => {
     // TODO:
     // make this a spinner
     return <div />;
-  } else if (!props.auth._id) {
+  } else if (!props.auth) {
     return (
       // <Link to={'/'}>
       <Button href="/" color="inherit">
@@ -55,16 +55,12 @@ const Header = props => (
           <Dialpad className={props.classes.icon} aria-label="macro-wizard" />
         </IconButton>
       </Link>
-      <Link to="/intake">
-        <IconButton>
-          <DateRange color="disabled" aria-label="intake" />
-        </IconButton>
-      </Link>
-      <Link to="/exercise">
-        <IconButton>
-          <DirectionsRun color="disabled" aria-label="exercise" />
-        </IconButton>
-      </Link>
+      <IconButton disabled>
+        <DateRange color="disabled" aria-label="intake" />
+      </IconButton>
+      <IconButton disabled>
+        <DirectionsRun color="disabled" aria-label="exercise" />
+      </IconButton>
       <div className={props.classes.flexEnd}>
         <RenderSignIn auth={props.auth} />
       </div>

@@ -2,7 +2,7 @@ const requireUser = require('../middleware/requireUser');
 
 module.exports = app => {
   app.get('/api/user', (req, res) => {
-    req.user ? res.send(req.user) : res.send({});
+    req.user ? res.send(req.user) : res.type('text/plain').send(null);
   });
 
   app.post('/api/user/calculator', requireUser, async (req, res) => {

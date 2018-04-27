@@ -33,10 +33,6 @@ class App extends Component {
                 <Route path="/calculator" component={Calculator} />
                 <Route path="/intake" component={Intake} />
                 <Route path="/exercise" component={Exercise} />
-                {/* TODO: remove all these dev  */}
-                {/* <pre style={{ background: '#f2f2f2' }}>
-                  {JSON.stringify(this.props.auth, null, 2)}
-                </pre> */}
                 <Snackbar
                   anchorOrigin={{
                     vertical: 'bottom',
@@ -48,9 +44,7 @@ class App extends Component {
                   SnackbarContentProps={{
                     'aria-describedby': 'message-id'
                   }}
-                  message={
-                    <span id="message-id">{this.props.snackbar.text}</span>
-                  }
+                  message={<span>{this.props.snackbar.text}</span>}
                 />
               </div>
             </div>
