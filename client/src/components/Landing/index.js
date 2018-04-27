@@ -5,11 +5,28 @@ import { withStyles } from 'material-ui';
 import Button from 'material-ui/Button';
 
 const styles = {
+  container: {
+    display: 'flex',
+    width: '420px',
+    margin: 'auto',
+    marginTop: '40px',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
   googleSignIn: {
-    background: 'red'
+    background: '#dd4b39',
+    marginTop: '16px',
+    color: '#f5f5f5',
+    '&:hover': {
+      background: '#c13c2c'
+    }
   },
   githubSignIn: {
-    background: 'black'
+    background: '#24292e',
+    color: '#f5f5f5',
+    '&:hover': {
+      background: '#15181c'
+    }
   }
 };
 
@@ -20,7 +37,7 @@ const SocialSignIn = props => {
     return <div />;
   } else if (!props.auth._id) {
     return (
-      <div>
+      <div className={props.classes.container}>
         <Button className={props.classes.githubSignIn} href="/auth/github">
           Sign In With GITHUB
         </Button>
@@ -34,13 +51,9 @@ const SocialSignIn = props => {
   }
 };
 
-const Landing = props => {
-  return (
-    <div>
-      <SocialSignIn auth={props.auth} classes={props.classes} />
-    </div>
-  );
-};
+const Landing = props => (
+  <SocialSignIn auth={props.auth} classes={props.classes} />
+);
 
 const mapStateToProps = ({ auth }) => ({ auth });
 

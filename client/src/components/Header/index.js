@@ -38,8 +38,8 @@ const RenderSignIn = props => {
     );
   } else {
     return (
-      <Button color="inherit">
-        <a href="/api/user/logout">Log Out</a>
+      <Button href="/api/user/logout" color="inherit">
+        Log Out
       </Button>
     );
   }
