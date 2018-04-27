@@ -33,8 +33,6 @@ const styles = theme => ({
 
 const SocialSignIn = props => {
   if (props.auth === null) {
-    // TODO:
-    // Make this a spinner;
     return <div />;
   } else if (!props.auth._id) {
     return (

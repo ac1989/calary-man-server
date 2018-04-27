@@ -27,8 +27,6 @@ const styles = theme => ({
 
 const RenderSignIn = props => {
   if (props.auth === null) {
-    // TODO:
-    // make this a spinner
     return <div />;
   } else if (!props.auth) {
     return (

@@ -152,7 +152,7 @@ class TDEECalculatorForm extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12} className={classes.formSection}>
-          {!invalid && <MacroDisplay />}
+          <MacroDisplay />
         </Grid>
         <Grid item xs={12} className={classes.formSection}>
           {this.props.auth && (
@@ -177,27 +177,25 @@ TDEECalculatorForm = reduxForm({
   enableReinitialize: true
 })(TDEECalculatorForm);
 
-// FIXME:
-export default connect(({ auth }) => {
-  if (auth && auth.data) {
-    return {
-      initialValues: {
-        ...auth.data,
-        weight: auth.weighIns[0] ? auth.weighIns[0].weight : '70'
-      },
-      auth
-    };
-  } else {
-    return {
-      initialValues: {
+const mapStateToProps = ({ auth }) => {
+  const determineInitValues = () => {
+    if (auth) {
+      return { ...auth.data, weight: auth.weighIns[0].weight };
+    } else {
+      return {
         height: '',
         weight: '',
         age: '',
         gender: 'male',
         activityLevel: '1.55',
         dietaryGoal: '1'
-      },
-      auth
-    };
-  }
-})(withStyles(styles)(TDEECalculatorForm));
+      };
+    }
+  };
+  return {
+    initialValues: determineInitValues(),
+    auth
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(TDEECalculatorForm));
