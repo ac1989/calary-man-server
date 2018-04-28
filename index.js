@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 require('./routes/auth')(app);
 require('./routes/user')(app);
 
-if (process.env.env === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
   const path = require('path');
