@@ -179,7 +179,7 @@ TDEECalculatorForm = reduxForm({
 
 const mapStateToProps = ({ auth }) => {
   const determineInitValues = () => {
-    if (auth) {
+    if (auth && auth.weighIns[0]) {
       return { ...auth.data, weight: auth.weighIns[0].weight };
     } else {
       return {
