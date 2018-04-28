@@ -19,10 +19,6 @@ app.use(cookieSession({ maxAge: 30 * 24 * 60 * 1000, keys: [keys.cookieKey] }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-  res.send({ status: 'OK!' });
-});
-
 require('./routes/auth')(app);
 require('./routes/user')(app);
 
