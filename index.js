@@ -26,6 +26,14 @@ app.get('/', (req, res) => {
 require('./routes/auth')(app);
 require('./routes/user')(app);
 
-// Deployment 01; Get PORT from Heroku env, else use 5000
+if (process.env.env === 'production') {
+  app.use(express.static('client/build'));
+
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index'));
+  });
+}
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
