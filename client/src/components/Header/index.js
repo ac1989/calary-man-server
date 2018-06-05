@@ -1,27 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { withStyles } from 'material-ui';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import Dialpad from '@material-ui/icons/Dialpad';
-import DateRange from '@material-ui/icons/DateRange';
-import DirectionsRun from '@material-ui/icons/DirectionsRun';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import LocalDiningIcon from '@material-ui/icons/LocalDining';
+import MenuIcon from '@material-ui/icons/Menu';
+import HelpIcon from '@material-ui/icons/Help';
+import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 
 const styles = theme => ({
-  container: {
-    background: theme.palette.primary.dark
+  root: {
+    [theme.breakpoints.up('xs')]: {
+      position: 'absolute'
+    },
+    [theme.breakpoints.up('sm')]: {
+      position: 'static'
+    }
   },
-  icon: {
-    color: theme.palette.primary.contrastText
+  toolBar: {
+    padding: '0',
+    [theme.breakpoints.up('sm')]: {
+      padding: `0 ${theme.spacing.unit * 2}px`
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: `0 ${theme.spacing.unit * 3}px`
+    }
   },
   flex: {
-    display: 'flex'
-  },
-  flexEnd: {
-    marginLeft: 'auto'
+    flex: '1'
   }
 });
 
@@ -31,9 +42,9 @@ const RenderSignIn = props => {
   } else if (!props.auth) {
     return (
       // <Link to={'/'}>
-      <Button href="/" color="inherit">
-        Sign In
-      </Button>
+      <Link to="/">
+        <Button color="inherit">Sign In</Button>
+      </Link>
       // </Link>
     );
   } else {
@@ -45,26 +56,44 @@ const RenderSignIn = props => {
   }
 };
 
-const Header = props => (
-  <AppBar className={props.classes.container} position="static">
-    <Toolbar className={props.classes.flex}>
-      <Link to="/calculator">
-        <IconButton>
-          <Dialpad className={props.classes.icon} aria-label="macro-wizard" />
+const Header = ({ classes, auth }) => {
+  const renderAuth = auth ? (
+    <Button href="/api/user/logout" color="primary">
+      Log Out
+    </Button>
+  ) : (
+    <Link to="/">
+      <Button color="primary">Log In</Button>
+    </Link>
+  );
+  return (
+    <AppBar position="static" elevation={0} className={classes.root}>
+      <Toolbar className={classes.toolBar}>
+        <IconButton disabled>
+          <MenuIcon />
         </IconButton>
-      </Link>
-      <IconButton disabled>
-        <DateRange color="disabled" aria-label="intake" />
-      </IconButton>
-      <IconButton disabled>
-        <DirectionsRun color="disabled" aria-label="exercise" />
-      </IconButton>
-      <div className={props.classes.flexEnd}>
-        <RenderSignIn auth={props.auth} />
-      </div>
-    </Toolbar>
-  </AppBar>
-);
+        <Link to="/calculator">
+          <IconButton>
+            <i className="fa fa-calculator" />
+          </IconButton>
+        </Link>
+        <IconButton disabled>
+          <LocalDiningIcon />
+        </IconButton>
+        <IconButton disabled>
+          <FitnessCenterIcon />
+        </IconButton>
+        <div className={classes.flex} />
+        {renderAuth}
+        <Link to="/help">
+          <IconButton>
+            <HelpIcon />
+          </IconButton>
+        </Link>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 const mapStateToProps = ({ auth }) => ({ auth });
 

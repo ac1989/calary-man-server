@@ -1,62 +1,106 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { withStyles } from 'material-ui/styles';
-import Radio from 'material-ui/Radio';
-import Grid from 'material-ui/Grid';
-import Button from 'material-ui/Button';
-import { FormLabel, FormControlLabel } from 'material-ui/Form';
+import { withStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import { FormLabel, FormControlLabel } from '@material-ui/core';
 import {
   renderTextField,
   renderRadioGroup,
+  renderSelectField,
   tdeeCalculatorErrors,
   normalizeInt
 } from '../../helpers/form';
 import MacroDisplay from './MacroDisplay';
 
+import { Select } from 'redux-form-material-ui';
+
 const styles = theme => ({
-  container: {
+  root: {
     display: 'flex',
     flexWrap: 'wrap',
-    padding: theme.spacing.unit,
-    margin: theme.spacing.unit,
-    background: '#f1f1f1'
+    position: 'relative',
+    margin: 'auto',
+    width: '100%',
+    maxWidth: '472px',
+    padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit}px`
   },
-  margin: {
-    margin: theme.spacing.unit
+  formRow: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginLeft: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2
   },
-  formControl: {
-    margin: theme.spacing.unit * 3
+  radioItem: {
+    width: 100
   },
-  formSection: {
-    marginTop: theme.spacing.unit * 3
+  textField: {
+    marginRight: theme.spacing.unit * 2,
+    flexGrow: 1
+  },
+  select: {
+    marginRight: theme.spacing.unit * 2,
+    width: 200
   }
 });
-
-// TODO:
-// +add imperial units
-// +add custom values
-// +improve validation
 
 class TDEECalculatorForm extends Component {
   render() {
     const { classes } = this.props;
     const { handleSubmit, submitting, invalid } = this.props;
     return (
-      <form className={classes.container} onSubmit={handleSubmit}>
-        <Grid item xs={12} sm={6} md={4} className={classes.formSection}>
-          <FormLabel component="legend">Measurements</FormLabel>
+      <form className={classes.root} onSubmit={handleSubmit}>
+        <div className={classes.formRow}>
           <Field
             className={classes.margin}
+            name="gender"
+            component={renderRadioGroup}
+            row
+          >
+            <FormControlLabel
+              className={classes.radioItem}
+              value="male"
+              control={<Radio />}
+              label="Male"
+            />
+            <FormControlLabel
+              className={classes.radioItem}
+              value="female"
+              control={<Radio />}
+              label="Female"
+            />
+          </Field>
+        </div>
+
+        <div className={classes.formRow}>
+          <Field
+            className={classes.textField}
+            name="age"
+            component={renderTextField}
+            label="Age"
+            helperText="We wont tell anyone (honest)..."
+            normalize={normalizeInt}
+          />
+          <Field
+            className={classes.textField}
             name="height"
             component={renderTextField}
             label="Height (cm)"
             required
-            helperText="Enter you're height in centimeters..."
+            helperText="Enter your height in centimeters..."
             normalize={normalizeInt}
           />
           <Field
-            className={classes.margin}
+            className={classes.textField}
             name="weight"
             component={renderTextField}
             label="Weight (kg)"
@@ -64,97 +108,42 @@ class TDEECalculatorForm extends Component {
             helperText="Enter your weight in kilograms..."
             normalize={normalizeInt}
           />
+        </div>
+
+        <div className={classes.formRow}>
           <Field
-            className={classes.margin}
-            name="age"
-            component={renderTextField}
-            label="Age"
-            helperText="We wont tell anyone (honest)..."
-            normalize={normalizeInt}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} className={classes.formSection}>
-          <Grid item xs={12}>
-            <FormLabel component="legend">Gender</FormLabel>
-            <Field
-              className={classes.margin}
-              name="gender"
-              component={renderRadioGroup}
-              row
-            >
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
-              />
-            </Field>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <FormLabel component="legend">Activity Level</FormLabel>
-            <Field
-              className={classes.margin}
-              name="activityLevel"
-              component={renderRadioGroup}
-            >
-              <FormControlLabel
-                value="1.375"
-                control={<Radio />}
-                label="Sedentary"
-              />
-              <FormControlLabel
-                value="1.55"
-                control={<Radio />}
-                label="Moderate"
-              />
-              <FormControlLabel
-                value="1.725"
-                control={<Radio />}
-                label="Very Active"
-              />
-            </Field>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} md={4} className={classes.formSection}>
-          <Grid item xs={12}>
-            <FormLabel component="legend">Dietary Goal</FormLabel>
-            <Field
-              className={classes.margin}
-              name="dietaryGoal"
-              component={renderRadioGroup}
-            >
-              <FormControlLabel
-                value="0.8"
-                control={<Radio />}
-                label="Lose Weight (20% Defecit)"
-              />
-              <FormControlLabel
-                value="0.9"
-                control={<Radio />}
-                label="Lose Weight (10% Defecit)"
-              />
-              <FormControlLabel
-                value="1"
-                control={<Radio />}
-                label="Maintain"
-              />
-              <FormControlLabel
-                value="1.1"
-                control={<Radio />}
-                label="Gain Weight (10% Surplus)"
-              />
-              <FormControlLabel
-                value="1.2"
-                control={<Radio />}
-                label="Gain Weight (20% Surplus)"
-              />
-            </Field>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} className={classes.formSection}>
+            name="activityLevel"
+            component={Select}
+            placeholder="Activity Level"
+            className={classes.select}
+          >
+            <MenuItem value="1.375">Sedentary</MenuItem>
+            <MenuItem value="1.55" label="Moderate">
+              Moderate
+            </MenuItem>
+            <MenuItem value="1.725" label="Very Active">
+              Very Active
+            </MenuItem>
+          </Field>
+          <Field
+            name="dietaryGoal"
+            component={Select}
+            placeholder="Dietary Goal"
+            className={classes.select}
+          >
+            <MenuItem value={'0.8'}>Cut 20%</MenuItem>
+            <MenuItem value={'0.9'}>Cut 10%</MenuItem>
+            <MenuItem value={'1'}>Maintain</MenuItem>
+            <MenuItem value={'1.1'}>Bulk 10%</MenuItem>
+            <MenuItem value={'1.2'}>Bulk 20%</MenuItem>
+          </Field>
+        </div>
+
+        <div className={classes.formRow}>
           <MacroDisplay />
-        </Grid>
-        <Grid item xs={12} className={classes.formSection}>
+        </div>
+
+        <div className={classes.formRow}>
           {this.props.auth && (
             <Button
               type="submit"
@@ -165,7 +154,7 @@ class TDEECalculatorForm extends Component {
               Save
             </Button>
           )}
-        </Grid>
+        </div>
       </form>
     );
   }

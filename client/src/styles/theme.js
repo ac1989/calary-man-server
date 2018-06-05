@@ -1,16 +1,20 @@
-import { createMuiTheme } from 'material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import teal from '@material-ui/core/colors/teal';
+import grey from '@material-ui/core/colors/grey';
+import orange from '@material-ui/core/colors/orange';
 
 export default createMuiTheme({
   palette: {
-    primary: {
-      main: '#455a64',
-      contrastText: '#f5f5f5'
-    },
-    secondary: {
-      main: '#b71c1c'
-    }
+    type: 'dark',
+    primary: grey,
+    secondary: teal,
+    error: orange
   },
-  status: {
-    danger: 'orange'
+  overrides: {
+    MuiAppBar: {
+      colorPrimary: {
+        backgroundColor: grey[900]
+      }
+    }
   }
 });

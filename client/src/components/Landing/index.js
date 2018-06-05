@@ -1,49 +1,51 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { withStyles } from 'material-ui';
-import Button from 'material-ui/Button';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import AuthButton from '../common/AuthButton';
+import google from '../../images/logos/google-auth-36h.png';
 
 const styles = theme => ({
   container: {
     display: 'flex',
-    width: '420px',
+    width: '320px',
+    padding: '16px',
     maxWidth: '96%',
     margin: 'auto',
     marginTop: '40px',
     flexDirection: 'column',
     justifyContent: 'space-around'
   },
-  googleSignIn: {
-    background: '#dd4b39',
-    marginTop: `${theme.spacing.unit}px`,
-    color: '#f5f5f5',
-    '&:hover': {
-      background: '#c13c2c'
-    }
-  },
-  githubSignIn: {
-    background: '#24292e',
-    color: '#f5f5f5',
-    '&:hover': {
-      background: '#15181c'
-    }
+  authButton: {
+    // display: 'block',
+    // width: '100%'
   }
 });
 
-const SocialSignIn = props => {
-  if (props.auth === null) {
+const SocialSignIn = ({ classes, auth }) => {
+  if (auth === null) {
     return <div />;
-  } else if (!props.auth._id) {
+  } else if (!auth._id) {
     return (
-      <div className={props.classes.container}>
-        <Button className={props.classes.githubSignIn} href="/auth/github">
-          Sign In With GITHUB
-        </Button>
-        <Button className={props.classes.googleSignIn} href="/auth/google">
-          Sign In With GOOGLE
-        </Button>
-      </div>
+      <Paper className={classes.container}>
+        <a href="auth/github" className={classes.authButton}>
+          <AuthButton
+            authService="Github"
+            fontIcon="fab fa-github"
+            color="#fff"
+            backgroundColor="#24292e"
+          />
+        </a>
+        <a href="auth/google" className={classes.authButton}>
+          <AuthButton
+            authService="Google"
+            imgIcon={google}
+            color="rgba(0, 0, 0, 0.54)"
+            backgroundColor="#fff"
+          />
+        </a>
+      </Paper>
     );
   } else {
     return <Redirect to="/calculator" />;

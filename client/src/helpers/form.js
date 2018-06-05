@@ -1,9 +1,8 @@
 import React from 'react';
 import validator from 'validator';
-import TextField from 'material-ui/TextField';
-import { RadioGroup } from 'material-ui/Radio';
-
-import Grid from 'material-ui/Grid';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import { RadioGroup } from '@material-ui/core';
 
 export const renderTextField = ({
   input,
@@ -12,15 +11,13 @@ export const renderTextField = ({
   meta: { touched, error },
   ...custom
 }) => (
-  <Grid item xs={12} sm={12}>
-    <TextField
-      helperText={touched && error ? error : helperText}
-      label={label}
-      error={touched && error}
-      {...input}
-      {...custom}
-    />
-  </Grid>
+  <TextField
+    helperText={touched && error ? error : helperText}
+    label={label}
+    error={touched && error}
+    {...input}
+    {...custom}
+  />
 );
 
 export const renderRadioGroup = ({ input, ...rest }) => (
@@ -30,6 +27,22 @@ export const renderRadioGroup = ({ input, ...rest }) => (
     value={input.value}
     onChange={(event, value) => input.onChange(value)}
     row={rest.row}
+  />
+);
+
+export const renderSelectField = ({
+  input,
+  label,
+  meta: { touched, error },
+  children,
+  ...custom
+}) => (
+  <Select
+    {...input}
+    onChange={(event, index, value) => input.onChange(value)}
+    children={children}
+    {...custom}
+    value={input.value}
   />
 );
 

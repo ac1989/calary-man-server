@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCalculatedTDEE } from '../../selectors';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 
 export class MacroDisplay extends Component {
   render() {

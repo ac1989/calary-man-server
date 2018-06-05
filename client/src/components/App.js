@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import CssBaseline from 'material-ui/CssBaseline';
-import { MuiThemeProvider } from 'material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../styles/theme';
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 import { fetchUser, killSnackbar } from '../actions';
 import Header from './Header';
 import Landing from './Landing';
@@ -27,7 +27,7 @@ class App extends Component {
           <Router>
             <div>
               <Header />
-              <div style={{ width: '90%', maxWidth: '1200px', margin: 'auto' }}>
+              <div>
                 <Route exact path="/" component={Landing} />
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/calculator" component={Calculator} />
@@ -61,4 +61,7 @@ const mapStateToProps = ({ auth, form, snackbar }) => ({
   snackbar
 });
 
-export default connect(mapStateToProps, { fetchUser, killSnackbar })(App);
+export default connect(
+  mapStateToProps,
+  { fetchUser, killSnackbar }
+)(App);
