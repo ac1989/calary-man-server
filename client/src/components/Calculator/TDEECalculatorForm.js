@@ -2,23 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import { FormLabel, FormControlLabel } from '@material-ui/core';
-import {
-  renderTextField,
-  renderRadioGroup,
-  renderSelectField,
-  tdeeCalculatorErrors,
-  normalizeInt
-} from '../../helpers/form';
+import InputLabel from '@material-ui/core/InputLabel';
+import { tdeeCalculatorErrors, normalizeInt } from '../../helpers/form';
 import MacroDisplay from './MacroDisplay';
 
-import { Select } from 'redux-form-material-ui';
+import { RadioGroup, TextField, Select } from 'redux-form-material-ui';
 
 const styles = theme => ({
   root: {
@@ -47,6 +39,10 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2,
     flexGrow: 1
   },
+  selectField: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
   select: {
     marginRight: theme.spacing.unit * 2,
     width: 200
@@ -63,7 +59,7 @@ class TDEECalculatorForm extends Component {
           <Field
             className={classes.margin}
             name="gender"
-            component={renderRadioGroup}
+            component={RadioGroup}
             row
           >
             <FormControlLabel
@@ -85,7 +81,7 @@ class TDEECalculatorForm extends Component {
           <Field
             className={classes.textField}
             name="age"
-            component={renderTextField}
+            component={TextField}
             label="Age"
             helperText="We wont tell anyone (honest)..."
             normalize={normalizeInt}
@@ -93,7 +89,7 @@ class TDEECalculatorForm extends Component {
           <Field
             className={classes.textField}
             name="height"
-            component={renderTextField}
+            component={TextField}
             label="Height (cm)"
             required
             helperText="Enter your height in centimeters..."
@@ -102,7 +98,7 @@ class TDEECalculatorForm extends Component {
           <Field
             className={classes.textField}
             name="weight"
-            component={renderTextField}
+            component={TextField}
             label="Weight (kg)"
             required
             helperText="Enter your weight in kilograms..."
@@ -111,32 +107,41 @@ class TDEECalculatorForm extends Component {
         </div>
 
         <div className={classes.formRow}>
-          <Field
-            name="activityLevel"
-            component={Select}
-            placeholder="Activity Level"
-            className={classes.select}
-          >
-            <MenuItem value="1.375">Sedentary</MenuItem>
-            <MenuItem value="1.55" label="Moderate">
-              Moderate
-            </MenuItem>
-            <MenuItem value="1.725" label="Very Active">
-              Very Active
-            </MenuItem>
-          </Field>
-          <Field
-            name="dietaryGoal"
-            component={Select}
-            placeholder="Dietary Goal"
-            className={classes.select}
-          >
-            <MenuItem value={'0.8'}>Cut 20%</MenuItem>
-            <MenuItem value={'0.9'}>Cut 10%</MenuItem>
-            <MenuItem value={'1'}>Maintain</MenuItem>
-            <MenuItem value={'1.1'}>Bulk 10%</MenuItem>
-            <MenuItem value={'1.2'}>Bulk 20%</MenuItem>
-          </Field>
+          <div className={classes.selectField}>
+            <InputLabel htmlFor="al-helper">Activity Level</InputLabel>
+            <Field
+              name="activityLevel"
+              id="al-helper"
+              component={Select}
+              placeholder="Activity Level"
+              className={classes.select}
+            >
+              <MenuItem value="1.375">Sedentary</MenuItem>
+              <MenuItem value="1.55" label="Moderate">
+                Moderate
+              </MenuItem>
+              <MenuItem value="1.725" label="Very Active">
+                Very Active
+              </MenuItem>
+            </Field>
+          </div>
+          <div className={classes.selectField}>
+            <InputLabel htmlFor="dg-helper">Dietary Goal</InputLabel>
+
+            <Field
+              name="dietaryGoal"
+              id="dg-helper"
+              component={Select}
+              placeholder="Dietary Goal"
+              className={classes.select}
+            >
+              <MenuItem value={'0.8'}>Cut 20%</MenuItem>
+              <MenuItem value={'0.9'}>Cut 10%</MenuItem>
+              <MenuItem value={'1'}>Maintain</MenuItem>
+              <MenuItem value={'1.1'}>Bulk 10%</MenuItem>
+              <MenuItem value={'1.2'}>Bulk 20%</MenuItem>
+            </Field>
+          </div>
         </div>
 
         <div className={classes.formRow}>
@@ -176,8 +181,8 @@ const mapStateToProps = ({ auth }) => {
         weight: '',
         age: '',
         gender: 'male',
-        activityLevel: '1.55',
-        dietaryGoal: '1'
+        activityLevel: '',
+        dietaryGoal: ''
       };
     }
   };
