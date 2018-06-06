@@ -17,7 +17,7 @@ Fitness tracking tools.
 
 - Users can login / sign up with a username / password.
 - Users can connect OAuth services to an existing account.
-- Users can log their daily weight and total calory intake.
+- Users can log their daily weight and total calorie intake.
 - Calary Man will auto adjust a user's recommended intake base on their logged weight and intake.
 
 #### Future
@@ -25,8 +25,8 @@ Fitness tracking tools.
 - Users can add ingredients and said ingredient's nutritional profile.
 - Users can build recipes using said ingredients.
 - Users can log their food intake using ingredients and recipes.
-- Users can pick a taget macro split.
-- Users are provided a clean overview of their dietary aherance.
+- Users can pick a target macro split.
+- Users are provided a clean overview of their dietary adherance.
 
 ##### Beyond
 
